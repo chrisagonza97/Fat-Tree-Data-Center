@@ -1,0 +1,29 @@
+for(each episode){
+    totalCost=0
+    for(every VM pair that hasn't been migrated yet, in non-ascending order of traffic rates){
+        find destination pms for ingress and egress VMs using transition rule
+        totalCost+=Communication cost from egress vm to first VNF + migration cost of migrating egress VM
+        totalCost+= Communication cost from first VNF to last VNF
+        totalCost+= Communication cost from ingress vm to last VNF + migration cost of migrating ingress VM
+    
+    }
+    update Q value for Q(s,t)
+
+    //calculate totalUtility from migration: totalCost - communication cost before migration
+    if(totalUtility> maxUtility){
+        //update local reward i.e.:
+            r((previous index of sorted list by traffic rates, location before migration),
+                (index of sorted list by traffic rates after traffic change))
+        //update global reward, which would be the sum of all local rewards
+        //update global profit (or utility), which would be global reward - global cost 
+        //update Q-value for Q(s,t) this time with global profit
+        maxUtility = totalUtility
+    }
+
+    s=t
+    randomize/ change traffic rates for next episode
+} end of each episode
+//execution stage
+Q(599,2) // from rank 599 to rank 2
+Q(3,17) //from PM 2 to PM 17
+or Q((599,3),(2,17)) from rank 599 at pm3 to rank 2 at pm17
