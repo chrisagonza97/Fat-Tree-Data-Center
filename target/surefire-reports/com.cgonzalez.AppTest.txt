@@ -1,4 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: com.cgonzalez.AppTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.03 s - in com.cgonzalez.AppTest
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.032 s <<< FAILURE! - in com.cgonzalez.AppTest
+checkNodeLocation(com.cgonzalez.AppTest)  Time elapsed: 0.009 s  <<< ERROR!
+java.lang.ClassCastException: class com.cgonzalez.AggregateSwitch cannot be cast to class com.cgonzalez.CoreSwitch (com.cgonzalez.AggregateSwitch and com.cgonzalez.CoreSwitch are in unnamed module of loader 'app')
+	at com.cgonzalez.AppTest.checkNodeLocation(AppTest.java:18)
+

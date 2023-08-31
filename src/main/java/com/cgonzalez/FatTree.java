@@ -1,29 +1,49 @@
 package com.cgonzalez;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class FatTree {
     int uuid = 0;
     int k;
     int vmPairCount;
     int vnfCapacity;
+    int vnfCount;
     int firstPm; // index of the first physical machine
     int lastPm; // last
     int pmCount; // how many physical machines are there
     int resourceCapacity;
     Node[] tree;
+    int [] vnfs;
 
-    FatTree(int k, int vmPairCount, int vnfCapacity) {
+    FatTree(int k, int vmPairCount, int vnfCapacity, int vnfCount) {
         this.k = k;
         this.vmPairCount = vmPairCount;
         this.vnfCapacity = vnfCapacity;
-
+        this.vnfCount = vnfCount;
         firstPm = (k * k) / 4 + (k * k / 2) + (k * k / 2);
         lastPm = firstPm + (k * k * k) / 4 - 1;
         pmCount = lastPm - firstPm + 1;
 
         int treeSize = (k * k / 4) + (k / 2 * k) + (k / 2 * k) + (k * k * k / 4);
         tree = new Node[treeSize];
+        vnfs = new int[vnfCount];
+        buildTree();//putting nodes in Node Array
+        placeVnfs();
+    }
+
+    private void placeVnfs() {
+        //randomly place VNFs on any node that is not a physical machine
+        for (int i=0;i<vnfCount;i++){
+            boolean flag=true;
+            int randomNode=-1;
+            while(flag){
+                randomNode = ThreadLocalRandom.current().nextInt(0, firstPm);
+                flag = Arrays.asList(vnfs).contains(randomNode);
+            }
+            vnfs[i] = randomNode;
+        }
     }
 
     public void buildTree() {
