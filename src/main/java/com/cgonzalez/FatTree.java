@@ -55,7 +55,7 @@ public class FatTree {
         int podCount = -1;
         int coreCount = 0;
         for (int i = 0; i < k / 2 * k; i++) {
-            if (i % k / 2 == 0) {
+            if (i % (k / 2) == 0) {
                 podCount++;
                 coreCount = 0;
             }

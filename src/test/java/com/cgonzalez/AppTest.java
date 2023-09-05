@@ -12,7 +12,7 @@ public class AppTest
     /**
      *  checking if nodes are where they are supposed to be, for k=4
      */
-    /*@Test
+    @Test
     public void checkNodeLocation()
     {
         FatTree testTree = new FatTree(4,10,3,3);
@@ -36,6 +36,12 @@ public class AppTest
         assertTrue(testTree.lastPm==35);
         //there are 16 PMs
         assertTrue(testTree.pmCount==16);
-    }*/
+    }
+    public void checkNodeEdges(){
+        FatTree testTree = new FatTree(4,10,3,3);
 
+        CoreSwitch firstCore = (CoreSwitch) testTree.tree[0];
+        CoreSwitch lastCore = (CoreSwitch) testTree.tree[3];
+        assertTrue()
+    }
 }
