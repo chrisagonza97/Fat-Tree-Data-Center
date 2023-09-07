@@ -1,11 +1,12 @@
 package com.cgonzalez;
 
 public class CoreSwitch extends Node {
-    int id;
+    //int id;
     int aggrEdges[];
     int k;
     public CoreSwitch(int id, int k) {
-        this.id = id;
+        super(id);
+        //this.id = id;
         aggrEdges = new int[k];
         this.k=k;
     }

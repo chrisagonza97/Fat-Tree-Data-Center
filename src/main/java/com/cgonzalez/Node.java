@@ -2,7 +2,7 @@ package com.cgonzalez;
 
 public class Node {
     int id;
-    Node(){
-        
+    Node(int id){
+        this.id = id;
     }
 }

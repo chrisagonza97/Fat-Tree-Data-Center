@@ -1,12 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.cgonzalez.AppTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.032 s <<< FAILURE! - in com.cgonzalez.AppTest
-checkNodeLocation(com.cgonzalez.AppTest)  Time elapsed: 0.005 s  <<< ERROR!
-java.lang.Error: 
-Unresolved compilation problems: 
-	Syntax error, insert ";" to complete FieldDeclaration
-	void is an invalid type for the variable checkNodeLocation
-
-	at com.cgonzalez.AppTest.<init>(AppTest.java:40)
-
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.034 s - in com.cgonzalez.AppTest

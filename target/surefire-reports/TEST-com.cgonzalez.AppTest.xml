@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.cgonzalez.AppTest" time="0.032" tests="1" errors="1" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.cgonzalez.AppTest" time="0.034" tests="4" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="19"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -15,7 +15,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-19\bin"/>
-    <property name="sun.java.command" value="C:\Users\Chris\AppData\Local\Temp\surefire193374959115402683\surefirebooter3852150861955116798.jar C:\Users\Chris\AppData\Local\Temp\surefire193374959115402683 2023-09-04T18-11-01_489-jvmRun1 surefire4428675823775798737tmp surefire_08358435223470052881tmp"/>
+    <property name="sun.java.command" value="C:\Users\Chris\AppData\Local\Temp\surefire8231514230511722609\surefirebooter9187061804936550014.jar C:\Users\Chris\AppData\Local\Temp\surefire8231514230511722609 2023-09-06T19-05-09_147-jvmRun1 surefire4640731340650998085tmp surefire_010569306475159087096tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="C:\Users\Chris\Desktop\FatTreeDataCenter\fat-tree-data-center\target\test-classes;C:\Users\Chris\Desktop\FatTreeDataCenter\fat-tree-data-center\target\classes;C:\Users\Chris\.m2\repository\junit\junit\4.11\junit-4.11.jar;C:\Users\Chris\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -30,7 +30,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\Chris\AppData\Local\Temp\surefire193374959115402683\surefirebooter3852150861955116798.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\Chris\AppData\Local\Temp\surefire8231514230511722609\surefirebooter9187061804936550014.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="19.0.2+7-44"/>
@@ -58,13 +58,8 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="63.0"/>
   </properties>
-  <testcase name="checkNodeLocation" classname="com.cgonzalez.AppTest" time="0.005">
-    <error message="Unresolved compilation problems: &#10;	Syntax error, insert &quot;;&quot; to complete FieldDeclaration&#10;	void is an invalid type for the variable checkNodeLocation&#10;" type="java.lang.Error"><![CDATA[java.lang.Error: 
-Unresolved compilation problems: 
-	Syntax error, insert ";" to complete FieldDeclaration
-	void is an invalid type for the variable checkNodeLocation
-
-	at com.cgonzalez.AppTest.<init>(AppTest.java:40)
-]]></error>
-  </testcase>
+  <testcase name="checkNodeLocation" classname="com.cgonzalez.AppTest" time="0.005"/>
+  <testcase name="checkDists" classname="com.cgonzalez.AppTest" time="0.002"/>
+  <testcase name="checkCoreEdges" classname="com.cgonzalez.AppTest" time="0"/>
+  <testcase name="checkAggrEdges" classname="com.cgonzalez.AppTest" time="0"/>
 </testsuite>

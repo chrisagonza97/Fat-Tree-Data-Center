@@ -40,7 +40,7 @@ public class FatTree {
             int randomNode=-1;
             while(flag){
                 randomNode = ThreadLocalRandom.current().nextInt(0, firstPm);
-                flag = Arrays.asList(vnfs).contains(randomNode);
+                flag = containsElement(vnfs,randomNode);
             }
             vnfs[i] = randomNode;
         }
@@ -75,7 +75,7 @@ public class FatTree {
         podCount = -1;
         int edgeId = uuid - 1;// the index before first edge switch
         for (int i = 0; i < k / 2 * k; i++) {
-            if (i % k / 2 == 0) {
+            if (i % (k / 2) == 0) {
                 podCount++;
             }
             addToTree("edge", podCount, -1);
@@ -83,10 +83,10 @@ public class FatTree {
         // add k^3/4 physical machines to the tree array
         podCount = -1;
         for (int i = 0; i < k * k * k / 4; i++) {
-            if (i % k * k / 4 == 0) {
+            if (i % (k * k / 4) == 0) {
                 podCount++;
             }
-            if (i % k / 2 == 0) {
+            if (i % (k / 2) == 0) {
                 edgeId++;
             }
             addToTree("pm", podCount, edgeId);
@@ -147,12 +147,12 @@ public class FatTree {
         if (one instanceof PhysicalMachine && two instanceof PhysicalMachine) {
             PhysicalMachine tempOne = (PhysicalMachine) one;
             PhysicalMachine tempTwo = (PhysicalMachine) two;
-            // if both pms are under the same de dist is 2;
+            // if both pms are under the same edge dist is 2;
             if (tempOne.edgeId == tempTwo.edgeId) {
                 return 2;
             }
             // otherwise if they are under the same pod dist is 4
-            if (tempOne.pod == tempOne.pod) {
+            if (tempOne.pod == tempTwo.pod) {
                 return 4;
             }
             // otherwise distance is 6
@@ -276,5 +276,13 @@ public class FatTree {
                 tree[uuid] = new PhysicalMachine(uuid, pod, edgeId);
         }
         uuid++;
+    }
+    public static boolean containsElement(int[] arr, int target) {
+        for (int element : arr) {
+            if (element == target) {
+                return true;
+            }
+        }
+        return false;
     }
 }

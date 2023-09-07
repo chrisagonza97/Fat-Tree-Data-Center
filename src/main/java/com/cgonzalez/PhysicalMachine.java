@@ -1,11 +1,12 @@
 package com.cgonzalez;
 
 public class PhysicalMachine extends Node {
-    int id;
+    //int id;
     int pod;
     int edgeId;
     public PhysicalMachine(int id, int pod, int edgeId){
-        this.id = id;
+        super(id);
+        //this.id = id;
         this.pod = pod;
         this.edgeId = edgeId;
     }
