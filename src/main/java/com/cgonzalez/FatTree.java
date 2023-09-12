@@ -2,6 +2,7 @@ package com.cgonzalez;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class FatTree {
@@ -15,13 +16,19 @@ public class FatTree {
     int pmCount; // how many physical machines are there
     int resourceCapacity;
     Node[] tree;
-    int [] vnfs;
+    int[] vnfs;
+    VmPair[] vmPairs;
+    int pmCapacity;
 
-    FatTree(int k, int vmPairCount, int vnfCapacity, int vnfCount) {
+    int trafficLow;
+    int trafficHigh;
+
+    FatTree(int k, int vmPairCount, int vnfCapacity, int vnfCount, int pmCapacity) {
         this.k = k;
         this.vmPairCount = vmPairCount;
         this.vnfCapacity = vnfCapacity;
         this.vnfCount = vnfCount;
+        this.pmCapacity = pmCapacity;
         firstPm = (k * k) / 4 + (k * k / 2) + (k * k / 2);
         lastPm = firstPm + (k * k * k) / 4 - 1;
         pmCount = lastPm - firstPm + 1;
@@ -29,18 +36,19 @@ public class FatTree {
         int treeSize = (k * k / 4) + (k / 2 * k) + (k / 2 * k) + (k * k * k / 4);
         tree = new Node[treeSize];
         vnfs = new int[vnfCount];
-        buildTree();//putting nodes in Node Array
+        vmPairs = new VmPair[vmPairCount];
+        buildTree();// putting nodes in Node Array
         placeVnfs();
     }
 
     private void placeVnfs() {
-        //randomly place VNFs on any node that is not a physical machine
-        for (int i=0;i<vnfCount;i++){
-            boolean flag=true;
-            int randomNode=-1;
-            while(flag){
+        // randomly place VNFs on any node that is not a physical machine
+        for (int i = 0; i < vnfCount; i++) {
+            boolean flag = true;
+            int randomNode = -1;
+            while (flag) {
                 randomNode = ThreadLocalRandom.current().nextInt(0, firstPm);
-                flag = containsElement(vnfs,randomNode);
+                flag = containsElement(vnfs, randomNode);
             }
             vnfs[i] = randomNode;
         }
@@ -273,10 +281,11 @@ public class FatTree {
                 tree[uuid] = new EdgeSwitch(uuid, pod);
                 break;
             case "pm":
-                tree[uuid] = new PhysicalMachine(uuid, pod, edgeId);
+                tree[uuid] = new PhysicalMachine(uuid, pod, edgeId, pmCapacity);
         }
         uuid++;
     }
+
     public static boolean containsElement(int[] arr, int target) {
         for (int element : arr) {
             if (element == target) {
@@ -284,5 +293,57 @@ public class FatTree {
             }
         }
         return false;
+    }
+
+    public void setTrafficRange(int trafficLow, int trafficHigh) {
+        this.trafficLow = trafficLow;
+        this.trafficHigh = trafficHigh;
+    }
+
+    public void createVmPairs() {
+        Random random = new Random();
+        // create vmpairs and place them (randomly) while ensuring PMs will not have
+        // more vms than their capacity allows
+        for (int i = 0; i < vmPairCount; i++) {
+            boolean flag = true;
+            int first = -1;
+            int second = -1;
+            while (flag) {
+                // generate two random numbers representing where the vms of the pair will be
+                // placed.
+                first = random.nextInt((lastPm - firstPm) + 1) + firstPm;
+                second = random.nextInt((lastPm - firstPm) + 1) + firstPm;
+                PhysicalMachine firstPm = (PhysicalMachine) tree[first];
+                PhysicalMachine secondPm = (PhysicalMachine) tree[second];
+                if (first == second) {
+                    continue;
+                }
+                if (firstPm.capacityLeft <= 0 || secondPm.capacityLeft <= 0) {
+                    continue;
+                }
+                flag = false;
+            }
+            // two destination pms found
+            PhysicalMachine firstPm = (PhysicalMachine) tree[first];
+            PhysicalMachine secondPm = (PhysicalMachine) tree[second];
+            int randRate = random.nextInt((trafficHigh - trafficLow) + 1) + trafficLow;
+            vmPairs[i] = new VmPair(first, second, randRate);
+            firstPm.addVm();
+            secondPm.addVm();
+        }
+    }
+
+    public void randomizeTraffic() {
+        // randomize traffic rates for each vmpair
+        Random rand = new Random();
+        for (int i = 0; i < vmPairs.length; i++) {
+            vmPairs[i].trafficRate = rand.nextInt((trafficHigh - trafficLow) + 1) + trafficLow;
+        }
+    }
+
+    public void cs2Migration() {
+        // create a cs2 input file for migration "vmMigrate.inp"
+        // run cs2 with "vmMigrate.inp" as input, and "migrateOutput.txt" for output
+        // read "migrationOutput.txt" to determine placement and total cost
     }
 }
